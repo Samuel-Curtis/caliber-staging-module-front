@@ -20,15 +20,17 @@ export class SwotService {
 
   constructor(private http :HttpClient) { }
 
-
-
+/**
+ * This creates a swot object to be sent to the backend
+ * @param swotAnalysis - the swot to be added to the database
+ */
   addSwot(swotAnalysis: Swot): Observable<any> {
     console.log("this should be a swot");
     console.log(swotAnalysis)
     return this.http.post<any>(`${environment.BASE_URL}swot/create`, swotAnalysis, this.httpOptions)
       .pipe(
-        tap((newSwotAnalysis: Swot) => console.log(newSwotAnalysis)),
-        catchError(this.handleError<any>('addSwot'))
+        tap((newSwotAnalysis: Swot) => console.log(newSwotAnalysis)), //captures the response and handles it if its a response
+        catchError(this.handleError<any>('addSwot')) //this handles if it is an error
       )
   }
 

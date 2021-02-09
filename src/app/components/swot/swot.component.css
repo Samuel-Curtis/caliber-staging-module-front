@@ -49,3 +49,7 @@ img{
     color: #b6b1a8;
 }
 
+#message {
+    color: red;
+    text-align: center;
+}

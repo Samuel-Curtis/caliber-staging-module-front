@@ -9,11 +9,18 @@
                                 [(ngModel)]="passedId" id="associateId" name="associateId" required>
                         </div>
                     </div>
+                    <div>
+                        <input type="text" placeholder="Enter SWOT Title" class="form-control my-2 p-2"
+                            [(ngModel)]="description" id="description" name="description" required 
+                            [style.border] = "this.descBorder" (ngModelChange)='descChange($event)'/>
+
+                    </div>
                     <div class="form-row">     This adds a name to a swot item, not the swot as a whole
                         <div class="col-lg-12">
 
                             <input type="text" placeholder="Enter Item" class="form-control my-2 p-2"
-                                [(ngModel)]="name" id="name" name="name" required>
+                                [(ngModel)]="name" id="name" name="name" required 
+                                [style.border] = "this.nameBorder" (ngModelChange)='nameChange($event)'>
 
                         </div>
                     </div>
@@ -25,21 +32,14 @@
                     </div> -->
                     <div class="form-row">
                         <div class="col-lg-12">
-                            <select [(ngModel)]="type" name="type" id="type" class="form-control my-2 p-1" required>
+                            <select [(ngModel)]="type" name="type" id="type" class="form-control my-2 p-1" required 
+                            [style.border] = "this.typeBorder" (ngModelChange)='typeChange($event)'>
                                 <option value="" disabled selected>Select SWOT Type</option>
                                 <option value="STRENGTH">Strength</option>
                                 <option value="WEAKNESS">Weakness</option>
                                 <option value="OPPORTUNITY">Opportunity</option>
                                 <option value="THREAT">Threat</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-lg-12">
-
-
-                            <input type="text" placeholder="Enter Item" class="form-control my-2 p-2"
-                                [(ngModel)]="name" id="name" name="name" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -51,8 +51,12 @@
                     </div>
                     <div class="form-row">
                         <div class="col-lg-12">
-                            <button type="submit" class="btn1 mt-3 mb-5" value="promote">ADD ITEM</button>
+                            <button id="additembutton" type="submit" class="btn1 mt-3 mb-5" value="promote">ADD ITEM</button>
                         </div>
+                    </div>
+                    <div class = "message1">
+                        <p id="message">{{message}}</p>
+                        <br>
                     </div>
                 </form>
                 <div class="table-responsive" *ngIf="hasData">
@@ -79,11 +83,7 @@
                 </div>
 
                 <div class="form-row" *ngIf="hasData">
-                    <div>
-                        <input type="text" placeholder="Enter SWOT Title" class="form-control my-2 p-2"
-                            [(ngModel)]="description" id="description" name="description" required/>
-
-                    </div>
+                    
                     <div class="col-lg-12">
                         <button (click)="addSwot()" type="submit" class="btn1 mt-3 mb-5" value="promote">SUBMIT</button>
                     </div>

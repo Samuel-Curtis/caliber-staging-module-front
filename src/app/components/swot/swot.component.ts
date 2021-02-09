@@ -19,15 +19,19 @@ import { Manager } from 'src/app/models/manager-model/manager';
 export class SwotComponent implements OnInit {
   myImage: string = 'assets/img/swot1.png';
   swotAnalysis = new Swot();
-  name : string;
+  name : string = "";
   type : string = "";
   note: string = "";
   associateId : number;
-  description: string;
+  description: string = "";
   i : number = 0;
   hasData : boolean = false;
   @Input() passedId: number;
   //analysisItems: Array<SwotItems>;
+  message: string = "";
+  descBorder: string = "1px solid";
+  nameBorder: string = "1px solid";
+  typeBorder: string = "1px solid";
 
   //initililizes empty array of swot items
   analysisItems: SwotItem[] = [];
@@ -43,15 +47,34 @@ export class SwotComponent implements OnInit {
   }
 
   //collects data from form and creates item array in the user's view (PUSH METHOD)
+  //checks for the name and type to be entered before proceeding with the push
   onSubmit(signInForm: NgForm){
-   let item : SwotItem = new SwotItem(0, this.name, this.type, this.note, this.associateId);
-   this.analysisItems.push(item);
-   console.log(this.analysisItems);
-    //  this.swotService.addSwot(this.swotAnalysis)
-    //    .subscribe(data => {
-    //      console.log(data);
-    //    });
-    this.hasData = true;
+    if (this.name.length === 0) {
+      this.nameBorder = "3px solid red";
+    } else {
+      this.nameBorder = "1px solid";
+    }
+    if (this.type === "") {
+      this.typeBorder = "3px solid red";
+    } else {
+      this.typeBorder = "1px solid";
+    }
+
+    if (this.name.length === 0) {
+      this.message = "Please enter SWOT item name.";
+    } else if (this.type === "") {
+      this.message = "Please select a SWOT type.";
+    } else {
+      let item : SwotItem = new SwotItem(0, this.name, this.type, this.note, this.associateId);
+      this.message = "";
+      this.analysisItems.push(item);
+      console.log(this.analysisItems);
+       //  this.swotService.addSwot(this.swotAnalysis)
+       //    .subscribe(data => {
+       //      console.log(data);
+       //    });
+       this.hasData = true;
+    }
   }
 
   //deletes the item from the item array in the user's view on delete click(FILTER METHOD)
@@ -65,17 +88,47 @@ export class SwotComponent implements OnInit {
     }
   }
 
+  //checks for description to be entered before proceeding with adding the SWOT
   addSwot(): void{
-    this.swotAnalysis.analysisItems = this.analysisItems;
-    this.swotAnalysis.associate = new Associate(this.associateId); //associate model constructor needs to be adjusted
-    this.swotAnalysis.description = this.description;
-    console.log(this.analysisItems)
-    console.log(this.swotAnalysis)
-    this.swotAnalysis.manager = new Manager(Number(sessionStorage.getItem('managerId')));
-     this.swotService.addSwot(this.swotAnalysis)
-       .subscribe(data => {
-         alert(`${data.message}`);
-       });
-    this.modalService.dismissAll();
+    if (this.description.length === 0) {
+      this.descBorder = "3px solid red";
+      this.message = "Please enter SWOT title.";
+    } else {
+      this.descBorder = "1px solid";
+      this.message = "";
+      this.swotAnalysis.analysisItems = this.analysisItems;
+      this.swotAnalysis.associate = new Associate(this.associateId); //associate model constructor needs to be adjusted
+      this.swotAnalysis.description = this.description;
+      console.log(this.analysisItems)
+      console.log(this.swotAnalysis)
+      this.swotAnalysis.manager = new Manager(Number(sessionStorage.getItem('managerId')));
+      this.swotService.addSwot(this.swotAnalysis)
+        .subscribe(data => {
+          alert(`${data.message}`);
+        });
+      this.modalService.dismissAll();
+    }
   }
+
+  descChange(UpdatedValue : string) :void 
+  { 
+    if (this.description.length !== 0) {
+      this.descBorder = "1px solid";
+    };
+  } 
+
+  nameChange(UpdatedValue : string) :void 
+  { 
+    if (this.name.length !== 0) {
+      this.nameBorder = "1px solid";
+    };
+  } 
+
+  typeChange(UpdatedValue : string) :void 
+  { 
+    if (this.type !== "") {
+      this.typeBorder = "1px solid";
+    };
+  } 
+
 }

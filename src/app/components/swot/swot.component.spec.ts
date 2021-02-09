@@ -6,6 +6,7 @@ import { AngularFireModule } from '@angular/fire';
 
 import { SwotComponent } from './swot.component';
 import { FormsModule, NgForm } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 
 describe('SwotComponent', () => {
   let component: SwotComponent;
@@ -33,5 +34,12 @@ describe('SwotComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display a message if name is not entered and add item is clicked', () => {
+    let addItemButton = fixture.debugElement.query(By.css('#additembutton')).nativeElement;
+    addItemButton.click();
+    let message = fixture.debugElement.query(By.css('#message')).nativeElement;
+    expect(message.innerHTML).toBe('Please enter SWOT item name.');
   });
 });

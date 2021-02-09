@@ -59,9 +59,9 @@ export class ViewSwotComponent implements OnInit {
       .subscribe((data: any) => {
         console.log(data);
         alert(`${data.message}`);
+        this.pullSwotData();
       })
-    this.currentSwotAnalysis.analysisItems = this.currentSwotAnalysis.analysisItems.filter(swotItem => swotItem.id != swotItemId);
-    this.pullSwotData();
+      this.currentSwotAnalysis.analysisItems = this.currentSwotAnalysis.analysisItems.filter(swotItem => swotItem.id != swotItemId);
   }
 
   pullSwotData() {

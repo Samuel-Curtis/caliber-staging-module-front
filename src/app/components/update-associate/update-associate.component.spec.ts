@@ -9,7 +9,7 @@ import { UpdateBatchPayload } from '../view-associate/update-batch-payload';
 
 import { UpdateAssociateComponent } from './update-associate.component';
 
-fdescribe('UpdateAssociateComponent', () => {
+describe('UpdateAssociateComponent', () => {
  
   class MockService {
     updateBatch(updatePayload: UpdateBatchPayload) { }

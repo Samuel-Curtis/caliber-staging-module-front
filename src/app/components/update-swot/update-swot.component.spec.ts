@@ -8,7 +8,7 @@ import { SwotService } from 'src/app/services/swot/swot.service';
 import { UpdateBatchPayload } from '../view-associate/update-batch-payload';
 import { UpdateSwotComponent } from './update-swot.component';
 
-fdescribe('UpdateSwotComponent', () => {
+describe('UpdateSwotComponent', () => {
  
   class MockService {
     updateBatch(updatePayload: UpdateBatchPayload) { }

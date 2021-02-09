@@ -1,1 +1,6 @@
-<p>toast-message works!</p>
+<div class="toast-box">
+  <ngb-toast *ngFor="let toast of toastService.toasts" [header]="toast.header" [autohide]="true" [delay]="5000"
+    (hide)="toastService.remove(toast)" [animation]="true">
+    {{toast.body}}
+  </ngb-toast>
+</div>

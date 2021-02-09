@@ -4,6 +4,7 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/cor
 import { Swot } from 'src/app/models/swot-model/swot';
 import { SwotItem } from 'src/app/models/swot-model/swot-item';
 import { NgForm } from '@angular/forms';
+import { ToastRelayService } from 'src/app/services/toast-relay/toast-relay.service';
 
 @Component({
   selector: 'app-add-item',
@@ -19,7 +20,10 @@ export class AddItemComponent implements OnInit{
   finalCheck = false;
   nameInput = '1px solid #ced4da';
 
-  constructor(private swotService : SwotService, private modalService: NgbModal) { }
+  constructor(
+    private swotService : SwotService, 
+    private modalService: NgbModal,
+    private toastService: ToastRelayService) { }
 
   ngOnInit(): void {
     this.swotItem = new SwotItem(0, "", this.type, "", this.parentSwot.id);
@@ -55,7 +59,11 @@ export class AddItemComponent implements OnInit{
     }
     this.swotService.addItem(this.swotItem)
       .subscribe(data => {
-        alert("Success! New SWOT item has been added.")
+        // alert("Success! New SWOT item has been added.")
+        this.toastService.addToast({
+          header:'New SWOT item added!',
+          body:`${this.swotItem.type}`
+        });
       });
       this.modalService.dismissAll();
   }

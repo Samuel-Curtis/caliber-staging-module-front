@@ -19,7 +19,7 @@ export class LoginService {
     }),
   };
   //This method will retrieve the manger ID associated with the email address provided.
-  storeManagerIdFromServer(email: string) {
+/*   storeManagerIdFromServer(email: string) {
     console.log('In MangerID retriever! ' + 'Email is: ' + email);
     console.log(`${environment.BASE_URL}getmanager`);
     this.client
@@ -34,5 +34,25 @@ export class LoginService {
         console.log(sessionStorage.getItem('managerId'));
         console.log('Manager ID: ' + this.managerId);
       });
+  } */
+
+  storeManagerIdFromServer(email: string) {
+    console.log('In MangerID retriever! ' + 'Email is: ' + email);
+    console.log(`${environment.BASE_URL}getmanager`);
+
+    this.postManager(email).subscribe(
+      response => {
+        this.managerId = parseInt(response.message);
+        sessionStorage.setItem('managerId', JSON.stringify(this.managerId));
+        console.log(sessionStorage.getItem('managerId'));
+        console.log('Manager ID: ' + this.managerId);
+      }
+    );
   }
+
+  postManager(email: string): Observable<ClientMessage> {
+    return this.client.post<ClientMessage>(`${environment.BASE_URL}getmanager`, new ClientMessage(email), this.httpOptions);
+  }
+
+
 }

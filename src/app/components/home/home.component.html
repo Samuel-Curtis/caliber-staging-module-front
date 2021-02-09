@@ -2,7 +2,10 @@
     <div class="float-left left navbar">
         <img src="https://i.imgur.com/dYo5Z7w.png" class="img-fluid logo" alt="Revature Logo">
         <h1 class="title">Welcome</h1>
-        <app-nav-bar></app-nav-bar>
+        <div class="nav-components">
+            <app-nav-bar></app-nav-bar>
+            <app-toast-message></app-toast-message>
+        </div>
         <button class="btn btn-primary logout-btn" (click)="logOut()">Log Out</button>
     </div>
     <!-- <app-add-item></app-add-item> -->

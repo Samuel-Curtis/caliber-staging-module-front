@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastRelayService } from 'src/app/services/toast-relay/toast-relay.service';
 
 @Component({
   selector: 'app-toast-message',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToastMessageComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(public toastService:ToastRelayService) { }
 
   ngOnInit(): void {
   }

@@ -15,6 +15,8 @@ export class UpdateAssociateComponent implements OnInit {
   associateId!: number;
   curBatchId!: number;
   newBatchId!: number;
+  statusId!: number;
+  curStatusId!: string;
   updatePayload!: UpdateBatchPayload;
 
 
@@ -22,20 +24,20 @@ export class UpdateAssociateComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateForm = this.formBuild.group({
-      inputedBatchId: ['', [Validators.required]]
+      inputedBatchId: ['', [Validators.required]],
+      newStatusId: ['', [Validators.required]]
     })
   }
 
   onSubmit(): void {
     this.newBatchId = this.updateForm.get('inputedBatchId')?.value;
+    this.statusId = this.updateForm.get('newStatusId')?.value;
     this.updatePayload = {
       associate_id: this.associateId,
-      batch_id: this.newBatchId
+      batch_id: this.newBatchId,
+      status_id: this.statusId
     }
-    console.log("HERES MY VALUES");
-    console.log(this.associateId);
-    console.log(this.curBatchId);
-    console.log(this.newBatchId);
+
     this.assocService.updateBatch(this.updatePayload)
     .subscribe((data: any) => {
       console.log(data);

@@ -8,6 +8,7 @@ import { SwotService } from 'src/app/services/swot/swot.service';
 import { idTokenResult } from '@angular/fire/auth-guard';
 import { Associate } from 'src/app/models/associate-model/associate.model';
 import { Manager } from 'src/app/models/manager-model/manager';
+import { ToastRelayService } from 'src/app/services/toast-relay/toast-relay.service';
 // import { ToastrService } from 'ngx-toastr';
 // import { NotificationService } from 'src/app/services/notifications/notification.service';
 
@@ -39,7 +40,8 @@ export class SwotComponent implements OnInit {
   constructor(
     private swotService: SwotService,
     private loginService: LoginService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastService: ToastRelayService
   ) // private toastr: NotificationService
   {}
   ngOnInit(): void {
@@ -108,6 +110,7 @@ export class SwotComponent implements OnInit {
         });
       this.modalService.dismissAll();
     }
+
   }
 
   descChange(UpdatedValue : string) :void 

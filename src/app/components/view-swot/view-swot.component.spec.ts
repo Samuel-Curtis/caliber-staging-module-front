@@ -12,7 +12,7 @@ describe('ViewSwotComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ 
+      imports: [
         HttpClientModule,
         AngularFireModule.initializeApp(environment.firebase),
         AppRoutingModule
@@ -32,4 +32,5 @@ describe('ViewSwotComponent', () => {
   xit('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

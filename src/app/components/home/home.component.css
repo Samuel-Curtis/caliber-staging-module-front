@@ -85,6 +85,11 @@
     animation-duration: 2.5s;*/
 }
 
+.nav-components{
+    display: flex;
+    flex-direction: column;
+}
+
 /*Media Breakpoints*/
 
 /* Smartphones (portrait and landscape) ----------- */

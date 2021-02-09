@@ -4,7 +4,6 @@ import { Swot } from 'src/app/models/swot-model/swot';
 import { SwotService } from 'src/app/services/swot/swot.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'app-update-swot',
   templateUrl: './update-swot.component.html',
@@ -23,7 +22,9 @@ export class UpdateSwotComponent implements OnInit{
       inputedDescription: ['', [Validators.required]]
     })
   }
-
+/**
+ * This is the onSubmit to update the SWOT description. It takes the description from the HTML form and makes a call to the swotService
+ */
   onSubmit() { 
     this.parentSwot.description = this.updateForm.get('inputedDescription')?.value;
     this.swotService.addSwot(this.parentSwot).subscribe((data: any) => {

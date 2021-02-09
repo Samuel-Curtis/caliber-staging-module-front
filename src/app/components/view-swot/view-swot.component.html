@@ -16,6 +16,7 @@
         <br>
         <p>Click on "Add New Item" to add an item to the existing SWOT.</p>
     </nav>
+    <app-toast-message></app-toast-message>
 </div>
 
 <div id="display-box-info" class="row align-items-center justify-content-center" *ngIf="currentSwotAnalysis">
@@ -39,8 +40,8 @@
             <option *ngFor="let swotAnalysis of swotAnalyses;" [ngValue]="swotAnalysis">
                 {{swotAnalysis.description}} ({{swotAnalysis.createdOn | date:'short':'EST'}})</option>
         </select>
-
-
+<br>
+        <button class="btn toggle-btn" (click)="changeDescription()">Change SWOT Title</button>
 
         <table *ngIf="currentSwotAnalysis" id="swot-table">
             <tr>
@@ -116,7 +117,7 @@
                 <button class="btn toggle-btn" (click)="addItemStrength()">Add new item</button>
 
                 <button class="btn toggle-btn" (click)="addItem()">Add new item</button>
-               
+
                 <button class="btn toggle-btn" (click)="changeDescription()">Change Description</button>
 
 

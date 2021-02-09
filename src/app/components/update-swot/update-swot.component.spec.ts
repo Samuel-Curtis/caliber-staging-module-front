@@ -4,12 +4,11 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AssociateService } from 'src/app/services/associate/associate.service';
+import { SwotService } from 'src/app/services/swot/swot.service';
 import { UpdateBatchPayload } from '../view-associate/update-batch-payload';
+import { UpdateSwotComponent } from './update-swot.component';
 
-import { UpdateAssociateComponent } from './update-associate.component';
-
-fdescribe('UpdateAssociateComponent', () => {
+fdescribe('UpdateSwotComponent', () => {
  
   class MockService {
     updateBatch(updatePayload: UpdateBatchPayload) { }
@@ -19,26 +18,26 @@ fdescribe('UpdateAssociateComponent', () => {
     inputedBatchId: new FormControl(1),
   })
   
-  let component: UpdateAssociateComponent;
-  let fixture: ComponentFixture<UpdateAssociateComponent>;
+  let component: UpdateSwotComponent;
+  let fixture: ComponentFixture<UpdateSwotComponent>;
   let router: Router;
-  let associateServ: AssociateService;
+  let swotServ: SwotService;
   let mockClient: {get: jasmine.Spy, post: jasmine.Spy, put: jasmine.Spy, delete: jasmine.Spy};;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule.withRoutes([]), ReactiveFormsModule, FormsModule ],
-      providers: [{provide: AssociateService, useClass: MockService}, 
+      providers: [{provide: SwotService, useClass: MockService}, 
                   {provide: HttpClient, useValue: mockClient}],
-      declarations: [ UpdateAssociateComponent ]
+      declarations: [ UpdateSwotComponent ]
     })
     .compileComponents();
-    fixture = TestBed.createComponent(UpdateAssociateComponent);
+    fixture = TestBed.createComponent(UpdateSwotComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
     router = TestBed.inject(Router);
-    associateServ = TestBed.inject(AssociateService);
+    swotServ = TestBed.inject(SwotService);
     mockClient = TestBed.get(HttpClient);
   });
 
@@ -49,19 +48,13 @@ fdescribe('UpdateAssociateComponent', () => {
   it("should have correct text pre populated", () => {
     fixture.detectChanges();
     let pageTitle = fixture.debugElement.query(By.css("h1")).nativeElement;
-    let assocId = fixture.debugElement.query(By.css("#assocId")).nativeElement;
-    let batchId = fixture.debugElement.query(By.css("#batchId")).nativeElement;
-    let assocStatus = fixture.debugElement.query(By.css("#assocStatus")).nativeElement;
-    expect(pageTitle.innerHTML).toBe('<u _ngcontent-a-c100="">Update Associate</u>');
-    expect(assocId.innerHTML).toContain("Associate ID:");
-    expect(batchId.innerHTML).toContain("Current Batch ID:");
-    expect(assocStatus.innerHTML).toContain("Current Status:");
+    expect(pageTitle.innerHTML).toBe("Update Description");
   });
 
   it('should call the onSubmit() method', waitForAsync(()=>{
-    let loginButton = fixture.debugElement.query(By.css('button')).nativeElement;
+    let changeDescButton = fixture.debugElement.query(By.css('button')).nativeElement;
     spyOn(component, 'onSubmit').withArgs();
-    loginButton.click();
+    changeDescButton.click();
 
     fixture.whenStable().then(()=>{
       expect(component.onSubmit).toHaveBeenCalled();

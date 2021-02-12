@@ -36,14 +36,13 @@ export class UpdateItemComponent implements OnInit {
     console.log(itemForm)
     console.log(itemForm.value)
     console.log(this.swotItem)
-    
     this.swotService.updateItem(this.swotItem)
       .subscribe(data => {
         // console.log(data);
         // alert("Success! SWOT item has been updated.")
         this.toastService.addToast({
           header:'SWOT item updated',
-          body:`Current type: ${this.swotItem.type}`
+          body:`Current name: ${this.swotItem.name}`
         })
       });
     this.modalService.dismissAll();

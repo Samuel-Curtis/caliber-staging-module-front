@@ -7,6 +7,7 @@ import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth
 import { HomeComponent } from './components/home/home.component';
 import { ViewSwotComponent } from './components/view-swot/view-swot.component';
 import { UpdateItemComponent } from './components/update-item/update-item.component';
+import { ViewFeedbackComponent } from './components/view-feedback/view-feedback.component';
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
@@ -48,6 +49,14 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin
+    }
+  },
+
+  {path: 'feedback/:associateId',
+  component: ViewFeedbackComponent,
+  canActivate: [AngularFireAuthGuard],
     data: {
       authGuardPipe: redirectUnauthorizedToLogin
     }

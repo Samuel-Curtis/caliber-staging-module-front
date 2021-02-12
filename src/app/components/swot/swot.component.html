@@ -10,6 +10,7 @@
                         </div>
                     </div>
                     <div>
+                        
                         <input type="text" placeholder="Enter SWOT Title" class="form-control my-2 p-2"
                             [(ngModel)]="description" id="description" name="description" required 
                             [style.border] = "this.descBorder" (ngModelChange)='descChange($event)'/>
@@ -85,7 +86,7 @@
                 </div>
 
                 <div class="form-row" *ngIf="hasData">
-                    
+
                     <div class="col-lg-12">
                         <button (click)="addSwot()" type="submit" id="submit-button" class="btn1 mt-3 mb-5" value="promote">SUBMIT</button>
                     </div>

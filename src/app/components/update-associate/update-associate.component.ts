@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AssociateService } from 'src/app/services/associate/associate.service';
+import { ToastRelayService } from 'src/app/services/toast-relay/toast-relay.service';
 import { UpdateBatchPayload } from '../view-associate/update-batch-payload';
 
 @Component({
@@ -18,9 +20,16 @@ export class UpdateAssociateComponent implements OnInit {
   statusId!: number;
   curStatusId!: string;
   updatePayload!: UpdateBatchPayload;
+  formExists: boolean = true;
 
 
-  constructor(private modalService: NgbModal, private formBuild: FormBuilder, private assocService: AssociateService) { }
+  constructor(private modalService: NgbModal, 
+              private formBuild: FormBuilder, 
+              private assocService: AssociateService, 
+              private router: Router, 
+              private model: NgbActiveModal,
+              private toastService: ToastRelayService) { }
+
 
   ngOnInit(): void {
     this.updateForm = this.formBuild.group({
@@ -29,6 +38,7 @@ export class UpdateAssociateComponent implements OnInit {
     })
   }
 
+  //Bandaid fix. TODO Refactor of update-associate component necessary.
   onSubmit(): void {
     this.newBatchId = this.updateForm.get('inputedBatchId')?.value;
     this.statusId = this.updateForm.get('newStatusId')?.value;
@@ -37,12 +47,22 @@ export class UpdateAssociateComponent implements OnInit {
       batch_id: this.newBatchId,
       status_id: this.statusId
     }
-
     this.assocService.updateBatch(this.updatePayload)
     .subscribe((data: any) => {
       console.log(data);
+      this.toastService.addToast({
+        header:'Updating associate!',
+        body:data
+      })
     });
-    location.reload();
+    setTimeout(() => { this.reloadComponent(); }, 250);
+  }
+  reloadComponent() {
+    let currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+    this.model.close();
   }
 
 }

@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row no-gutters">
+        <div class="col-lg-12 px-5 pt-5">
+            <h1 class="font-weight-bold py-3">Enter Feedback</h1>
+
+            <form (ngSubmit)="onSubmit(feedbackForm)" #feedbackForm="ngForm">
+                <div class="form-row">
+                    <div class="col-lg-12">
+                        <label for="associate_id">Associate Id:</label>
+                        <input type="text" disabled placeholder="Enter Associate Id" class="form-control my-2 p-2"
+                            [(ngModel)]="passedId" id="associate_id" name="associateId" required>
+                    </div>
+                </div>
+                    <div class="form-row"> 
+                        <div class="col-lg-12">
+                            <label for="manager_id">Manager Id:</label>
+                        <input type="text" disabled placeholder="Enter Manager Id" class="form-control my-2 p-2"
+                            [(ngModel)]="managerId" id="manager_id" name="managerId" required />
+                        </div>
+                    </div>
+
+                    <div class="form-row"> 
+                        <div class="col-lg-12">
+
+                            <input type="text" id="textarea" placeholder="Enter Feedback" class="form-control my-2 p-2"
+                                [(ngModel)]="content" id="content" name="content" required 
+                                [style.border] = "this.nameBorder" (ngModelChange)='contentChange($event)'>
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                    
+                        <div class="col-lg-12">
+                            <button type="submit" id="submit-button" class="btn1 mt-3 mb-5" value="addFeedback">ADD FEEDBACK</button>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+

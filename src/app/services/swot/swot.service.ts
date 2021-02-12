@@ -34,6 +34,14 @@ export class SwotService {
       )
   }
 
+  /**
+   * This forms an http request intended to delete a swot.
+   * @param swotId - the id of the swot to be deleted
+   */
+  deleteSwot(swotId: number): Observable<any> {
+    return this.http.delete<any>(`${environment.BASE_URL}swot/delete/${swotId}`);
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error)

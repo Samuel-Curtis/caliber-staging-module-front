@@ -1,3 +1,7 @@
+.textarea {
+  width:300px;
+}
+
 *{
   padding: 0;
   margin: 0;
@@ -6,13 +10,13 @@
 }
 
 body{
-  background: var(--dark-white);
+  background: rgb(219, 226, 226);
 }
 
 .row{
-  background: var(--white);
+  background: white;
   /*border-radius: 30px;*/
-  box-shadow: 12px 12px 22px var(--light-gray);
+  box-shadow: 12px 12px 22px grey;
 }
 
 img{
@@ -25,22 +29,26 @@ img{
   outline: none;
   height: 50px;
   width: 100%;
-  background-color: var(--yellow);
-  color: var(--white);
+  background-color: #f0ad4e;
+  color: white;
   border-radius: 4px;
   font-weight: bold;
 }
 
 .btn1:hover{
-  background: var(--white);
+  background: white;
   border: 1px solid;
-  color: var(--black);
+  color: black;
 }
 
 .modal-content {
   width: 600px !important;
 }
 
-.form-content {
-  width: 50%;
+.nav-link{
+  color: white;
+}
+
+.nav-link:hover{
+  color: #b6b1a8;
 }

@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body{
-    background: var(--dark-white);
+    background: rgb(219, 226, 226);
     
 }
 
@@ -13,7 +13,7 @@ ul {
 }
 
 .row{
-    background: var(--white);
+    background: white;
     border-radius: 30px;
 }
 /* img{
@@ -23,20 +23,20 @@ ul {
 .btn1{
     border: none;
     padding: 5px 10px;
-    background-color: var(--orange);
-    color: var(--white);
+    background-color: #f26926;
+    color: white;
     border-radius: 10px;
     transition: 0.4s ease-in-out;
 }
 .btn1:hover{
-    background-color: var(--light-gray);
+    background-color: #b6b1a8;
     /* commented out because this line was affected the margins of other elements near this button -AK */
     /* border: 1px solid black; */
     text-decoration: underline;
 }
 .btn1:focus{
-    border-color: var(--orange);
-    box-shadow: 0 0 0 0.2rem var(--brown);
+    border-color: #f26926;
+    box-shadow: 0 0 0 0.2rem rgba(243, 156, 113, .40);
 }
 .modal-content {
     background-color: none !important;
@@ -47,12 +47,12 @@ ul {
 }
 
 .left {
-    background-color: var(--dark-gray);
+    background-color: #474C55;
     height: 100%;
     width: 20%;
-    -webkit-box-shadow: 4px 2px 5px 0px var(--black);
-    -moz-box-shadow: 4px 2px 5px 0px var(--black);
-    box-shadow: 4px 2px 5px 0px var(--black);
+    -webkit-box-shadow: 4px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 4px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 4px 2px 5px 0px rgba(0, 0, 0, 0.75);
     padding: 20px;
 }
 
@@ -82,22 +82,22 @@ ul {
     text-align: center;
     margin-bottom: 20px;
     letter-spacing: 2px;
-    color: var(--light-gray);
+    color: silver;
     font-size: 1.2rem;
 }
 
 .nav, .title {
-    color: var(--light-gray);
+    color: #b6b1a8;
 }
 #display-box-info{
-    background-color: var(--dark-gray);
-    border: 5px solid var(--orange);
-    width: 250px;
+    background-color:#474C55;
+    border: 5px solid #f26926;
+    width: 300px;
     font-size:0.8rem;
     border-radius: 20px;
     margin: 10px auto;
     padding: 10px;
-    color: var(--light-gray);
+    color: silver;
 
 }
 
@@ -107,7 +107,7 @@ ul {
 }
 
 #homeLink{
-    color: var(--orange);
+    color: #f26926;
     margin-top: 5px;
     text-align: center;
 }
@@ -136,15 +136,14 @@ section {
 /* Added animation ENDS here -AK */
 
 .toggle-btn:focus{
-    border-color: var(--orange);
-    box-shadow: 0 0 0 0.2rem var(--brown);
+    border-color: #f26926;
+    box-shadow: 0 0 0 0.2rem rgba(243, 156, 113, .40);
 }
 
 .toggle-btn {
-    padding: 10px 20px;
-    background-color: var(--orange);
-    color: var(--white);
-    
+    padding: 5px 15px;
+    background-color: #f26926;
+    color: white;
     border: none;
     transition: 0.4s ease-in-out;
     margin-bottom: 10px;
@@ -161,7 +160,7 @@ section {
 }
 
 .toggle-btn:hover {
-    background-color: var(--light-gray);
+    background-color: #b6b1a8;
     
 }
 /* Cards diplay for 4 blocks */
@@ -183,15 +182,15 @@ section {
     overflow-y: auto;
 }
 
-.card-body::-webkit-scrollbar {
+.card::-webkit-scrollbar {
     width: .5em;
 }
 
-.card-body::-webkit-scrollbar-track{
+.card::-webkit-scrollbar-track{
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-.card-body::-webkit-scrollbar-thumb {
+.card::-webkit-scrollbar-thumb {
     background-color: #b8b3aa;
     /* outline: 1px solid slategrey; */
     border-radius: 10px;
@@ -214,6 +213,6 @@ section {
     /*optional*/
     font-family: arial, sans-serif;
     /*input has OS specific font-family*/
-    color: var(--blue);
+    color: #069;
     cursor: pointer;
 }

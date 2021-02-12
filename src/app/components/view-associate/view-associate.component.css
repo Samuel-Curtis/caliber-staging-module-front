@@ -13,8 +13,8 @@
 
 .rev-btn {
     padding: 10px 20px;
-    background-color: #f26926;
-    color: white;
+    background-color: var(--orange);
+    color: var(--white);
     border: none;
     border-radius: 10px;
    /* transition: 0.4s ease-in-out;
@@ -29,14 +29,14 @@
 }
 
 .toggle-btn:focus{
-    border-color: #f26926;
-    box-shadow: 0 0 0 0.2rem rgba(243, 156, 113, .40);
+    border-color: var(--orange);
+    box-shadow: 0 0 0 0.2rem var(--brown);
 }
 
 .toggle-btn {
     padding: 10px 20px;
-    background-color: #f26926;
-    color: white;
+    background-color: var(--orange);
+    color: var(--white);
     border: none;
     border-radius: 10px;
     transition: 0.4s ease-in-out;
@@ -45,7 +45,7 @@
 }
 
 .toggle-btn:hover {
-    background-color: #b6b1a8;
+    background-color: var(--light-gray);
     text-decoration: underline;
 }
 

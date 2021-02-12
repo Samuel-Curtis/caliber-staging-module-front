@@ -7,8 +7,6 @@ import { Swot } from 'src/app/models/swot-model/swot';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { UpdateSwotComponent } from '../update-swot/update-swot.component';
-import { NgForm } from '@angular/forms';
-import { ResourceLoader } from '@angular/compiler';
 import { ToastRelayService } from 'src/app/services/toast-relay/toast-relay.service';
 
 @Component({
@@ -22,10 +20,6 @@ export class ViewSwotComponent implements OnInit {
   index: number = 0;
   currentSwotAnalysis: Swot;
   type: string = "";
-  currentStrengths: SwotItem[] = [];
-  currentWeak: SwotItem[] = [];
-  currentOpp: SwotItem[] = [];
-  currentThreat: SwotItem[] = [];
   activeSwotIndex: number;
 
   constructor(private swotService: SwotService,
@@ -44,8 +38,14 @@ export class ViewSwotComponent implements OnInit {
     
   }
 
+  updateSelectedSwot(){
+    this.currentSwotAnalysis = this.currentSwotAnalysis;
+    this.pullSwotData();
+  }
+
   // Opens Update as a modal page.
   openUpdatePage(swotItem: SwotItem, swotAnalysisId: number) {
+    console.log(SwotItem);
     swotItem.swotAnalysisId = swotAnalysisId;
     const modalRef = this.modalService.open(UpdateItemComponent);
     modalRef.componentInstance.name = 'UpdateSwot';
@@ -61,7 +61,7 @@ export class ViewSwotComponent implements OnInit {
       .subscribe((data: any) => {
 
         console.log(data);
-        alert(`${data.message}`);
+        // alert(`${data.message}`);
         this.toastService.addToast({
           header:"SWOT item deleted!",
           body:`SWOT Item ID: ${swotItemId}`
@@ -76,26 +76,10 @@ export class ViewSwotComponent implements OnInit {
     const associateId = +this.route.snapshot.paramMap.get('associateId')!.valueOf();
     console.log(associateId)
     this.swotService.getSwotByAssociatedId(associateId)
-
       .subscribe((data: any) => {
         console.log(data);
-        this.currentStrengths = [];
-        this.currentWeak = [];
-        this.currentOpp = [];
-        this.currentThreat = [];
         this.swotAnalyses = data;
         this.currentSwotAnalysis = this.swotAnalyses[this.activeSwotIndex]
-        for (let temp of this.currentSwotAnalysis.analysisItems) {
-          if (temp.type === 'STRENGTH') {
-            this.currentStrengths.push(temp);
-          } else if (temp.type === 'WEAKNESS') {
-            this.currentWeak.push(temp);
-          } else if (temp.type === 'OPPORTUNITY') {
-            this.currentOpp.push(temp);
-          } else {
-            this.currentThreat.push(temp);
-          }
-        }
       })
   }
 
@@ -189,6 +173,31 @@ export class ViewSwotComponent implements OnInit {
   changeDescription(){
     const modalRef = this.modalService.open(UpdateSwotComponent);
     modalRef.componentInstance.parentSwot = this.currentSwotAnalysis;
+  }
+
+    /**
+   * This shows or hides a Confirm and Cancel button for Delete SWOT.
+   */
+  confirmDeleteVisibility:string = 'hidden';
+  toggleConfirmDelete(){
+    if(this.confirmDeleteVisibility == 'hidden') this.confirmDeleteVisibility = 'visible';
+    else this.confirmDeleteVisibility = 'hidden';
+  }
+  /**
+   * This sends a request to the backend to delete a swot with id=id.
+   */
+  deleteSwot(){
+    this.swotService.deleteSwot(this.currentSwotAnalysis.id).subscribe();
+
+    this.router.navigate(['/home']);
+  }
+
+  checkSwots(swotAnalyses){
+    for(let i=0; i<swotAnalyses.length; i++){
+      if(swotAnalyses[i].analysisItems==null){
+        delete swotAnalyses[i];
+      }
+    }
   }
 
 }

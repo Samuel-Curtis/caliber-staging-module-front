@@ -6,11 +6,11 @@
 }
 
 body{
-  background: rgb(219, 226, 226);
+  background: var(--dark-white);
 }
 
 .row{
-  background: white;
+  background: var(--white);
   /*border-radius: 30px;*/
   box-shadow: 12px 12px 22px grey;
 }
@@ -25,16 +25,16 @@ img{
   outline: none;
   height: 50px;
   width: 100%;
-  background-color: #f0ad4e;
-  color: white;
+  background-color: var(--yellow);
+  color: var(--white);
   border-radius: 4px;
   font-weight: bold;
 }
 
 .btn1:hover{
-  background: white;
+  background: var(--white);
   border: 1px solid;
-  color: black;
+  color: var(--black);
 }
 
 .modal-content {
@@ -42,9 +42,9 @@ img{
 }
 
 .nav-link{
-  color: white;
+  color: var(--white);
 }
 
 .nav-link:hover{
-  color: #b6b1a8;
+  color: var(--light-gray);
 }

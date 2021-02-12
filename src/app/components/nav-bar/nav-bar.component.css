@@ -7,9 +7,9 @@
 }
 
 .nav-link{
-    color: white;
+    color: var(--white);
 }
 
 .nav-link:hover{
-    color: #b6b1a8;
+    color: var(--light-gray);
 }

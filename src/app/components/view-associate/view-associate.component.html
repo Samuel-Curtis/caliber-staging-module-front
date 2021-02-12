@@ -2,7 +2,10 @@
     <span class="label label-default label-center" id="users-list">Associate</span>
 </div>
 <button class="btn btn-primary toggle-btn" (click)="toggleAssociateView()" id="associate-btn"> VIEW NEW </button>
-<div class="table-responsive">
+<br>
+
+<!-- Do we need the following div? It messes up for smaller screens -->
+<!-- <div class="table-responsive"> -->
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -15,10 +18,13 @@
                 <th>Status</th>
                 <th></th>
                 <th></th>
+                <th><input type='text' [(ngModel)]='assocFilter' placeholder='Search Associates' style='width:140px'>
+                </th>
             </tr>
         </thead>
         <tbody id="associate-content">
-            <tr *ngFor="let associate of associates; trackBy: trackItem" [class.selected]="associate === selectedAssociate" id="data-row">
+            <tr *ngFor="let associate of getFilteredAssociates(); trackBy: trackItem"
+                [class.selected]="associate === selectedAssociate" id="data-row">
                 <td>{{associate.id}}</td>
                 <td>{{associate.salesforceId}}</td>
                 <td>{{associate.email}}</td>
@@ -29,9 +35,11 @@
                 <td><button class="btn btn-primary rev-btn" (click)="activeId=associate.id; batchId=associate.batch; 
                                                                      statusId=associate.status; updateBatch()">Update Associate</button></td>
                 <td><button class="btn btn-primary rev-btn" (click)="activeId=associate.id; open()">Create SWOT</button></td>
-                <td><button class="btn btn-primary rev-btn" routerLink="/view/{{associate.id}}">View SWOTs</button></td>
+                <td><button class="btn btn-primary rev-btn" (click)="activeId=associate.id; checkSwotsValid()">View SWOTs</button></td>
+                <td><button class="btn btn-primary rev-btn" routerLink="/feedback/{{associate.id}}">View Feedback</button></td>
+
             </tr>
-            
+
         </tbody>
     </table>
-</div>
+<!-- </div> -->

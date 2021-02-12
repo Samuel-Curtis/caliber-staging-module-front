@@ -1,5 +1,5 @@
 * {
-    color: silver;
+    color: var(--light-gray);
     margin: 0;
     padding: 0;
 }
@@ -9,12 +9,12 @@
 }
 
 .left {
-    background-color: #474C55;
+    background-color: var(--dark-gray);
     height: 100%;
     width: 20%;
-    -webkit-box-shadow: 4px 2px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 4px 2px 5px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: 4px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 4px 2px 5px 0px var(--black);
+    -moz-box-shadow: 4px 2px 5px 0px var(--black);
+    box-shadow: 4px 2px 5px 0px var(--black);
     padding: 20px;
 }
 
@@ -89,14 +89,14 @@
 
 .form-control:focus,
 .login-btn:focus{
-    border-color: #f26926;
-    box-shadow: 0 0 0 0.2rem rgba(243, 156, 113, .40);
+    border-color: var(--orange);
+    box-shadow: 0 0 0 0.2rem var(--orange);
 }
 
 .login-btn {
     padding: 10px 20px;
-    background-color: #f26926;
-    color: white;
+    background-color: var(--orange);
+    color: var(--white);
     border: none;
     border-radius: 10px;
     transition: 0.4s ease-in-out;
@@ -107,7 +107,7 @@
 }
 
 .login-btn:hover {
-    background-color: #474C55;
+    background-color: var(--dark-gray);
     text-decoration: underline;
 }
 .navbar{

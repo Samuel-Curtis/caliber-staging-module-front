@@ -1,19 +1,18 @@
-  
-<div class="container">
+<div class="container" *ngIf='formExists'>
     <div class="row no-gutters">
         <div class="col-lg-12 px-5 pt-5">
             <h1 class="font-weight-bold py-3"><u>Update Associate</u></h1>
             <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                 <div class="form-row">
                     <h4 class="font-weight-bold py-3" id="assocId">Associate ID: {{associateId}}</h4>
-                    <input type="text" placeholder="Enter New Associate ID" class="form-control my-2 p-2"
-                        id="newAssoc" disabled> 
+                    <input type="text" placeholder="Enter New Associate ID" class="form-control my-2 p-2" id="newAssoc"
+                        disabled>
                     <!-- For future implementation -->
                 </div>
                 <div class="form-row">
                     <h4 class="font-weight-bold py-3" id="batchId">Current Batch ID: {{curBatchId}}</h4>
                     <input type="text" placeholder="Enter New Batch ID" class="form-control my-2 p-2"
-                    [formControlName]="'inputedBatchId'" id="newBatch" required>
+                        [formControlName]="'inputedBatchId'" id="newBatch" required>
                 </div>
                 <h4 class="font-weight-bold py-3" id="assocStatus">Current Status: {{curStatusId}}</h4>
                 <div class="form-row">
@@ -22,7 +21,7 @@
                         <option value="1" [selected]="curStatusId == 'PROJECT'">PROJECT</option>
                         <option value="2" [selected]="curStatusId == 'RELEASED'">RELEASED</option>
                     </select>
-                
+
                 </div>
                 <div class="form-row">
                     <div class="col-lg-12">
@@ -32,4 +31,4 @@
             </form>
         </div>
     </div>
-  </div>
+</div>

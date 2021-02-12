@@ -9,6 +9,20 @@ body{
     font-family: "Futura Book", monospace;
 }
 
+:root {
+    /* Primary Company Colors */
+    --orange: #F26925;
+    --white: #FFFFFF;
+    --dark-gray: #474C55;
+    /* Secondary Company Colors */
+    --light-blue: #72A4C2;
+    --yellow: #fcb414;
+    --light-gray: #b9b9ba;
+    --dark-white: rgb(219, 226, 226);
+    --brown: rgba(243, 156, 113, .40);
+    --black: rgba(0, 0, 0, 0.75);
+    --blue: #069;
+}
 @font-face {
     font-family: "Futura Bold";
     src: local("Futura Bold"), url(./assets/font/Futura-Std-Bold.otf) format("truetype");

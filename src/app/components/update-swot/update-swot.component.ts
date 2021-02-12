@@ -30,6 +30,8 @@ export class UpdateSwotComponent implements OnInit{
     this.swotService.addSwot(this.parentSwot).subscribe((data: any) => {
       console.log(data);
     });
-    location.reload();
+    //location.reload();
+    this.modalService.dismissAll();
+
   }
 }

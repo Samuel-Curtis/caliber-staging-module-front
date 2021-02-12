@@ -37,36 +37,45 @@
     <div class="container">
 
         <select id="selectSwot" [(ngModel)]="currentSwotAnalysis">
-            <option *ngFor="let swotAnalysis of swotAnalyses;" [ngValue]="swotAnalysis">
+            <ng-container *ngFor="let swotAnalysis of swotAnalyses;" >
+
+            <option *ngIf="swotAnalysis.analysisItems.length>0" [ngValue]="swotAnalysis">
                 {{swotAnalysis.description}} ({{swotAnalysis.createdOn | date:'short':'EST'}})</option>
+            </ng-container>
         </select>
 <br>
-        <button class="btn toggle-btn" (click)="changeDescription()">Change SWOT Title</button>
+        <button class="btn toggle-btn" (click)="changeDescription()">Change SWOT Description</button>
 
         <table *ngIf="currentSwotAnalysis" id="swot-table">
             <tr>
                 <td class="table-data">
+                    
+
+                    
                     <div class="card" style="width: 20rem;">
                         <h5 class="card-title">Strength
                         </h5>
                         <div class="card-body">
                             <div class="btn-group-vertical">
-                                <button *ngFor="let swotItem of currentStrengths;" class="btn toggle-btn"
+                                <ng-container *ngFor="let swotItem of currentSwotAnalysis.analysisItems">
+                                <button *ngIf="swotItem.type == 'STRENGTH'" class="btn toggle-btn"
                                     (click)="openUpdatePage(swotItem, currentSwotAnalysis.id)">{{swotItem.name}}</button>
+                                </ng-container>
                             </div>
                         </div>
                         <button type="submit" class="btn toggle-btn circle-btn" (click)="addItemStrength()">+</button>
                     </div>
+
                 </td>
                 <td class="table-data">
                     <div class="card" style="width: 20rem;">
-                        <div class="card-body">
-
-
+                        <div  class="card-body">
                             <h5 class="card-title">Weakness</h5>
                             <div class="btn-group-vertical">
-                                <button *ngFor="let swotItem of currentWeak;" class="btn toggle-btn"
-                                    (click)="openUpdatePage(swotItem, currentSwotAnalysis.id)">{{swotItem.name}}</button>
+                                <ng-container *ngFor="let swotItem of currentSwotAnalysis.analysisItems">
+                                    <button *ngIf="swotItem.type == 'WEAKNESS'" class="btn toggle-btn"
+                                        (click)="openUpdatePage(swotItem, currentSwotAnalysis.id)">{{swotItem.name}}</button>
+                                    </ng-container>
                             </div>
                             <button class="btn toggle-btn circle-btn" (click)="addItemWeak()">+</button>
                         </div>
@@ -81,8 +90,10 @@
 
                             <h5 class="card-title">Opportunity</h5>
                             <div class="btn-group-vertical">
-                                <button *ngFor="let swotItem of currentOpp;" class="btn toggle-btn"
-                                    (click)="openUpdatePage(swotItem, currentSwotAnalysis.id)">{{swotItem.name}}</button>
+                                <ng-container *ngFor="let swotItem of currentSwotAnalysis.analysisItems">
+                                    <button *ngIf="swotItem.type == 'OPPORTUNITY'" class="btn toggle-btn"
+                                        (click)="openUpdatePage(swotItem, currentSwotAnalysis.id)">{{swotItem.name}}</button>
+                                    </ng-container>
                             </div>
                             <button class="btn toggle-btn circle-btn" (click)="addItemOpp()">+</button>
                         </div>
@@ -95,8 +106,10 @@
 
                                 <h5 class="card-title">Threat</h5>
                                 <div class="btn-group-vertical">
-                                    <button *ngFor="let swotItem of currentThreat;" class="btn toggle-btn"
-                                        (click)="openUpdatePage(swotItem, currentSwotAnalysis.id)">{{swotItem.name}}</button>
+                                    <ng-container *ngFor="let swotItem of currentSwotAnalysis.analysisItems">
+                                        <button *ngIf="swotItem.type == 'THREAT'" class="btn toggle-btn"
+                                            (click)="openUpdatePage(swotItem, currentSwotAnalysis.id)">{{swotItem.name}}</button>
+                                        </ng-container>
                                 </div>
                                 <button class="btn toggle-btn circle-btn" (click)="addItemThreat()">+</button>
                             </div>
@@ -105,6 +118,15 @@
                 </td>
             </tr>
         </table>
+        <button class="btn toggle-btn" (click)="toggleConfirmDelete()">Delete SWOT</button><br>
+        <span>
+            <button class="btn toggle-btn" (click)="deleteSwot()"
+            [ngStyle]="{'visibility':confirmDeleteVisibility}"
+            >Confirm</button>
+            <button class="btn toggle-btn" (click)="toggleConfirmDelete()"
+            [ngStyle]="{'visibility':confirmDeleteVisibility}"
+            >Cancel</button>
+        </span>
     </div>
 
     <!-- <div class="container">

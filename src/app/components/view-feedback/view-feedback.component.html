@@ -1,0 +1,52 @@
+<div class="float-left left">
+    <a routerLink="/home">
+        <img src="https://i.imgur.com/dYo5Z7w.png" class="img-fluid logo" alt="Revature Logo">
+        <p id="homeLink">Return to Home</p>
+    </a>
+    <nav class="nav flex-column navbar">
+        <br>
+        <br>
+        <span>Here are some helpful tips:</span>
+        <br>
+        <p>Click on the dropdown to select a particular timestamp for a user SWOT.</p>
+        <br>
+        <p>Click on "Update" to modify an individual SWOT item.</p>
+        <br>
+        <p>Click on "Delete" to remove an individual SWOT item.</p>
+        <br>
+        <p>Click on "Add New Item" to add an item to the existing SWOT.</p>
+    </nav>
+    <app-toast-message></app-toast-message>
+</div>
+
+<div id="display-box-info" class="row align-items-center justify-content-center" *ngIf="feedbackArray">
+    <h5>Feedback for Associate {{associateId}}</h5>
+</div>
+
+<section class="Form my-4 mx-5 right row align-items-center justify-content-center">
+    <div class="container">
+        <button class="btn toggle-btn" (click)="open()">Add new feedback</button>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Manager ID</th>
+                    <th>Created On</th>
+                    <th>Feedback</th>
+                    <th>Update Feedback</th>
+                    <th>Delete Feedback</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let feedback of feedbackArray" id="data-row">
+                    <td>{{feedback.manager.id}}</td>
+                    <td>{{feedback.date | date:'short':'EST'}}</td>
+                    <td>{{feedback.content}}</td>
+                    <td><button class="btn toggle-btn" (click)="openUpdatePage(feedback)">Update feedback</button></td>
+                    <td><button class="btn toggle-btn" (click)="delete(feedback.id)">Delete feedback</button></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</section>

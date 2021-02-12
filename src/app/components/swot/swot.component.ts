@@ -27,6 +27,7 @@ export class SwotComponent implements OnInit {
   description: string = "";
   i : number = 0;
   hasData : boolean = false;
+  existedDescription : string[] = [];
   @Input() passedId: number;
   //analysisItems: Array<SwotItems>;
   message: string = "";
@@ -46,6 +47,16 @@ export class SwotComponent implements OnInit {
   {}
   ngOnInit(): void {
     this.associateId = this.passedId;
+    this.getExistedDescription();
+  }
+
+  getExistedDescription(){
+    this.swotService.getSwotByAssociatedId(this.associateId)
+    .subscribe((data: any) => {
+      data.forEach((swot)=>{
+        this.existedDescription.push(swot.description);
+      })
+    })
   }
 
   //collects data from form and creates item array in the user's view (PUSH METHOD)
@@ -71,10 +82,10 @@ export class SwotComponent implements OnInit {
       this.message = "";
       this.analysisItems.push(item);
       console.log(this.analysisItems);
-       //  this.swotService.addSwot(this.swotAnalysis)
-       //    .subscribe(data => {
-       //      console.log(data);
-       //    });
+        this.swotService.addSwot(this.swotAnalysis)
+          .subscribe(data => {
+            console.log(data);
+          });
        this.hasData = true;
     }
   }
@@ -106,8 +117,11 @@ export class SwotComponent implements OnInit {
       this.swotAnalysis.manager = new Manager(Number(sessionStorage.getItem('managerId')));
       this.swotService.addSwot(this.swotAnalysis)
         .subscribe(data => {
-          alert(`${data.message}`);
-        });
+          // alert(`${data.message}`);
+          this.toastService.addToast({
+            header:`New SWOT created!`, 
+            body:`For associate ${this.swotAnalysis.associate.id}`});
+         });
       this.modalService.dismissAll();
     }
 

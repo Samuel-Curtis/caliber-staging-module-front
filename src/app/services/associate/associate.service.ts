@@ -35,7 +35,10 @@ export class AssociateService {
   }
 
   updateBatch(updatePayload: UpdateBatchPayload): any {
-    return this.http.put(`${environment.BASE_URL}associates`, updatePayload);
+    return this.http.put(`${environment.BASE_URL}associates`, updatePayload, {
+      observe: 'body',
+      responseType: 'text'
+    });
   }
 
 }

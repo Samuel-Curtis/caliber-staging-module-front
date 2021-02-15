@@ -22,16 +22,14 @@ export class UpdateSwotComponent implements OnInit{
       inputedDescription: ['', [Validators.required]]
     })
   }
-/**
- * This is the onSubmit to update the SWOT description. It takes the description from the HTML form and makes a call to the swotService
- */
+
+  /**
+   * This is the onSubmit function to update the SWOT description. It calls the swotService addSwot function to update the swot.
+   */
   onSubmit() { 
     this.parentSwot.description = this.updateForm.get('inputedDescription')?.value;
     this.swotService.addSwot(this.parentSwot).subscribe((data: any) => {
-      console.log(data);
     });
-    //location.reload();
     this.modalService.dismissAll();
-
   }
 }

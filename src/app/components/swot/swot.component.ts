@@ -9,8 +9,6 @@ import { idTokenResult } from '@angular/fire/auth-guard';
 import { Associate } from 'src/app/models/associate-model/associate.model';
 import { Manager } from 'src/app/models/manager-model/manager';
 import { ToastRelayService } from 'src/app/services/toast-relay/toast-relay.service';
-// import { ToastrService } from 'ngx-toastr';
-// import { NotificationService } from 'src/app/services/notifications/notification.service';
 
 @Component({
   selector: 'app-swot',
@@ -31,13 +29,11 @@ export class SwotComponent implements OnInit {
   isSwotEmpty: boolean;
   @Input() passedId: number;
   @Input() passedIsEmpty: boolean;
-  //analysisItems: Array<SwotItems>;
   message: string = "";
   descBorder: string = "1px solid";
   nameBorder: string = "1px solid";
   typeBorder: string = "1px solid";
 
-  //initililizes empty array of swot items
   analysisItems: SwotItem[] = [];
 
   constructor(
@@ -45,16 +41,18 @@ export class SwotComponent implements OnInit {
     private loginService: LoginService,
     private modalService: NgbModal,
     private toastService: ToastRelayService
-  ) // private toastr: NotificationService
+  ) 
   {}
+
   ngOnInit(): void {
     this.associateId = this.passedId;
     this.isSwotEmpty = this.passedIsEmpty;
-    console.log(this.passedIsEmpty);
-    
     this.getExistedDescription();
   }
 
+  /**
+   * This gets all the swots for a specific associate, then adds their description to an array that doesn't appear to be used
+   */
   getExistedDescription(){
     this.swotService.getSwotByAssociatedId(this.associateId)
     .subscribe((data: any) => {
@@ -64,8 +62,11 @@ export class SwotComponent implements OnInit {
     })
   }
 
-  //collects data from form and creates item array in the user's view (PUSH METHOD)
-  //checks for the name and type to be entered before proceeding with the push
+  /**
+   * This first checks to see if name and type are blank, if so it highlights their fields in red and shows a message to enter that data
+   * If the fields are not blank then it adds the item to the array and calls swotService addSwot to add the swot to the database
+   * @param signInForm this is the form with the swot item information
+   */
   onSubmit(signInForm: NgForm){
     if (this.name.length === 0) {
       this.nameBorder = "3px solid red";
@@ -86,27 +87,32 @@ export class SwotComponent implements OnInit {
       let item : SwotItem = new SwotItem(0, this.name, this.type, this.note, this.associateId);
       this.message = "";
       this.analysisItems.push(item);
-      console.log(this.analysisItems);
-        this.swotService.addSwot(this.swotAnalysis)
-          .subscribe(data => {
-            console.log(data);
-          });
-       this.hasData = true;
+      this.swotService.addSwot(this.swotAnalysis)
+        .subscribe(data => {
+        });
+      this.hasData = true;
     }
   }
 
-  //deletes the item from the item array in the user's view on delete click(FILTER METHOD)
+  /**
+   * This deletes the item from the item array in the user's view on delete click(FILTER METHOD)
+   * @param item this is the item to be deleteed
+   */
   delete(item: SwotItem): void {
     this.analysisItems = this.analysisItems.filter(
       (swotItem) => swotItem !== item
-    ); // this is so the component maintains its own
+    ); 
 
     if (this.analysisItems.length == 0) {
       this.hasData = false;
     }
   }
 
-  //checks for description to be entered before proceeding with adding the SWOT
+  /**
+   * This checks to see if the description is blank, if blank shows a message to enter the description
+   * If not blank then it calls the swotService addSwot method to update the Swot in the database.
+   * It then closes the modal.
+   */
   addSwot(): void{
     if (this.description.length === 0) {
       this.descBorder = "3px solid red";
@@ -115,14 +121,11 @@ export class SwotComponent implements OnInit {
       this.descBorder = "1px solid";
       this.message = "";
       this.swotAnalysis.analysisItems = this.analysisItems;
-      this.swotAnalysis.associate = new Associate(this.associateId); //associate model constructor needs to be adjusted
+      this.swotAnalysis.associate = new Associate(this.associateId); 
       this.swotAnalysis.description = this.description;
-      console.log(this.analysisItems)
-      console.log(this.swotAnalysis)
       this.swotAnalysis.manager = new Manager(Number(sessionStorage.getItem('managerId')));
       this.swotService.addSwot(this.swotAnalysis)
         .subscribe(data => {
-          // alert(`${data.message}`);
           this.toastService.addToast({
             header:`New SWOT created!`, 
             body:`For associate ${this.swotAnalysis.associate.id}`});
@@ -132,6 +135,10 @@ export class SwotComponent implements OnInit {
 
   }
 
+  /**
+   * This is called if the value for description changes and if is not blank, sets the border
+   * @param UpdatedValue this is the new value for the description field
+   */
   descChange(UpdatedValue : string) :void 
   { 
     if (this.description.length !== 0) {
@@ -139,6 +146,10 @@ export class SwotComponent implements OnInit {
     };
   } 
 
+  /**
+   * This is called if the value for name changes and if is not blank, sets the border
+   * @param UpdatedValue this is the new value for the name field
+   */
   nameChange(UpdatedValue : string) :void 
   { 
     if (this.name.length !== 0) {
@@ -146,6 +157,10 @@ export class SwotComponent implements OnInit {
     };
   } 
 
+  /**
+   * This is called if the value for type changes and if is not blank, sets the border
+   * @param UpdatedValue this is the new value for the type field
+   */
   typeChange(UpdatedValue : string) :void 
   { 
     if (this.type !== "") {

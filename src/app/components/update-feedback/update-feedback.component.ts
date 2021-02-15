@@ -24,20 +24,29 @@ export class UpdateFeedbackComponent implements OnInit {
 
   nameBorder: string = "1px solid";
 
+  /**
+   * This retrieves the feedback to be updated
+   */
   ngOnInit(): void {
-    
     this.feedbackItem = this.passedFeedback;
   }
 
-  contentChange(UpdatedValue : string) :void 
-  { 
+  /**
+   * This validates the 'content' field of the Feedback form
+   * (makes sure some content is entered into the form)
+   */
+  contentChange(UpdatedValue : string) : void { 
     if (this.feedbackItem.content.length !== 0) {
       this.nameBorder = "1px solid";
     };
   }
 
+  /**
+   * This submits the Feedback form 
+   * and updates Feedback in the database
+   * for the current Manager and the current Associate
+   */
   onSubmit(feedbackForm: NgForm) {
-    
     this.feedbackItem.associateId = this.passedAssociateId;
 
     this.feedbackService.updateFeedback(this.feedbackItem)
@@ -47,9 +56,6 @@ export class UpdateFeedbackComponent implements OnInit {
           body:`Current Feedback Content: ${this.feedbackItem.content}`
         })
       });
-      this.modalService.dismissAll();
-    
+      this.modalService.dismissAll(); 
   }
-
-
 }

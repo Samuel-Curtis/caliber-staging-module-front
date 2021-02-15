@@ -1,11 +1,9 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FeedbackService } from 'src/app/services/feedback/feedback.service';
-import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Feedback } from 'src/app/models/feedback-model/feedback.model';
 import { NgForm } from '@angular/forms';
 import { ToastRelayService } from 'src/app/services/toast-relay/toast-relay.service';
-import { Manager } from 'src/app/models/manager-model/manager';
-
 
 @Component({
   selector: 'app-add-feedback',
@@ -34,33 +32,35 @@ export class AddFeedbackComponent implements OnInit {
     private feedbackService: FeedbackService,
     private modalService: NgbModal,
     private toastService: ToastRelayService
-  ) // private toastr: NotificationService
-  { }
+  ) { }
+  
+  /**
+   * This retrieves the associate ID and the manager ID 
+   * that will be passed over to the Add Feedback Form
+   */
   ngOnInit(): void {
     this.associateId = this.passedId;
     this.managerId = parseInt(sessionStorage.getItem('managerId'));
   }
 
+  /**
+   * This submits the Feedback form 
+   * and creates a new Feedback in the database
+   * for the current Manager and the current Associate
+   */
   onSubmit(itemForm: NgForm) {
 
     if (this.formIncomplete == true) {
       this.finalCheck = true;
-
-      // if(this.content.length === 0){
-      //   this.contentInput = '2px solid red';
-      // } else{
-      //   this.contentInput = '1px solid #ced4da';
-      // }
-
-      // change border to red if formIncomplete is true.
+      
+      //change border to red if formIncomplete is true.
       this.nameBorder = "2px solid red";
 
-      // If formIncomplete is false, allow processing of feedback.
+    //If formIncomplete is false, allow processing of feedback.
     } else {
       this.feedback = new Feedback(0, this.managerId, this.content, this.associateId);
       this.feedbackService.addFeedback(this.feedback)
         .subscribe(data => {
-          // alert("Success! New SWOT item has been added.")
           this.toastService.addToast({
             header: 'New feedback added!',
             body: `${this.feedback.content}`
@@ -69,9 +69,12 @@ export class AddFeedbackComponent implements OnInit {
         });
       this.modalService.dismissAll();
     }
-
   }
 
+  /**
+   * This validates the 'content' field of the Feedback form
+   * (makes sure some content is entered into the form)
+   */
   contentChange(UpdatedValue: string): void {
     if (this.content.length !== 0) {
       this.nameBorder = "1px solid";

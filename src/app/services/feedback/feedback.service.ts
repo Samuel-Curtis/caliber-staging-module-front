@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Feedback } from './../../models/feedback-model/feedback.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.prod';
-
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +14,9 @@ export class FeedbackService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * This retrieves the feedback by associate Id
+   */
   getFeedbackByAssociateId(id: number): Observable<Feedback[]> {
     return this.http.get<Feedback[]>(`${environment.BASE_URL}feedback/associate/${id}`)
       .pipe(
@@ -22,6 +24,9 @@ export class FeedbackService {
       );
   }
 
+  /**
+   * This adds the feedback passed as an argument to the database
+   */
   addFeedback(feedback: Feedback): Observable<string> {
     let feedbackDTO = {
       id: feedback.id,
@@ -29,7 +34,6 @@ export class FeedbackService {
       content: feedback.content,
       associateId: feedback.associateId,
     }
-
     let associateId = feedback.associateId;
     
     return this.http.post<string>(`${environment.BASE_URL}feedback/${associateId}`, feedbackDTO, this.httpOptions)
@@ -38,6 +42,9 @@ export class FeedbackService {
     );
   }
 
+  /**
+   * This updates the feedback passed as an argument
+   */
   updateFeedback(feedback: Feedback): Observable<string> {
     let feedbackDTO = {
       id: feedback.id,
@@ -52,6 +59,9 @@ export class FeedbackService {
     );
   }
 
+  /**
+   * This deletes the feedback by its id passed as an argument
+   */
   deleteFeedback(feedbackId: number): Observable<string> {
     return this.http.delete<string>(`${environment.BASE_URL}feedback/${feedbackId}`, this.httpOptions)
       .pipe(catchError(this.handleError<string>("deleteFeedback"))

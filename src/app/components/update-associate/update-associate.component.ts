@@ -30,7 +30,6 @@ export class UpdateAssociateComponent implements OnInit {
               private model: NgbActiveModal,
               private toastService: ToastRelayService) { }
 
-
   ngOnInit(): void {
     this.updateForm = this.formBuild.group({
       inputedBatchId: ['', [Validators.required]],
@@ -38,7 +37,9 @@ export class UpdateAssociateComponent implements OnInit {
     })
   }
 
-  //Bandaid fix. TODO Refactor of update-associate component necessary.
+  /**
+   * This is the onSubmit function to update the associate. It calls the assocService updateBatch function to update the associate.
+   */
   onSubmit(): void {
     this.newBatchId = this.updateForm.get('inputedBatchId')?.value;
     this.statusId = this.updateForm.get('newStatusId')?.value;
@@ -49,7 +50,6 @@ export class UpdateAssociateComponent implements OnInit {
     }
     this.assocService.updateBatch(this.updatePayload)
     .subscribe((data: any) => {
-      console.log(data);
       this.toastService.addToast({
         header:'Updating associate!',
         body:data
@@ -57,6 +57,11 @@ export class UpdateAssociateComponent implements OnInit {
     });
     setTimeout(() => { this.reloadComponent(); }, 250);
   }
+
+
+  /**
+   * This reloads the component to update the modal.  Then it closes the modal.
+   */
   reloadComponent() {
     let currentUrl = this.router.url;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;

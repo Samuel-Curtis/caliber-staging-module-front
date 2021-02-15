@@ -8,21 +8,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(public auth: AngularFireAuth, private router: Router) {}
+  constructor(public auth: AngularFireAuth, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  // tslint:disable-next-line:typedef
+  /**
+   * This function logs out user when the logout button is clicked.
+   */
   logOut() {
-    console.log('signing out...');
+    debugger;
+
     this.auth
       .signOut()
       .then(() => this.router.navigate(['']))
       .catch((error) =>
         console.log(`Failed to log user out. Error => `, error)
       );
-    // clear all session information
     sessionStorage.clear();
-    console.log('session storage has been cleared!');
   }
 }

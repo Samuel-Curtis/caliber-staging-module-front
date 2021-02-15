@@ -43,7 +43,11 @@ export class ViewSwotComponent implements OnInit {
     this.pullSwotData();
   }
 
-  // Opens Update as a modal page.
+  /**
+   * This method opens a modal in order to update a SWOT analysis item
+   * @param swotItem is the SWOT analysis item
+   * @param swotAnalysisId is the id of the swot analysis
+   */
   openUpdatePage(swotItem: SwotItem, swotAnalysisId: number) {
     console.log(SwotItem);
     swotItem.swotAnalysisId = swotAnalysisId;
@@ -72,6 +76,9 @@ export class ViewSwotComponent implements OnInit {
       this.currentSwotAnalysis.analysisItems = this.currentSwotAnalysis.analysisItems.filter(swotItem => swotItem.id != swotItemId);
   }
 
+  /**
+   * This method pulls the SWOT analysis data from the backend
+   */
   pullSwotData() {
     const associateId = +this.route.snapshot.paramMap.get('associateId')!.valueOf();
     console.log(associateId)
@@ -83,6 +90,9 @@ export class ViewSwotComponent implements OnInit {
       })
   }
 
+  /**
+   * This method diplays the modal to add a SWOT analysis item in the Strength category by default
+   */
   addItemStrength() {
     const options: NgbModalOptions = {
       beforeDismiss: () => {
@@ -104,6 +114,9 @@ export class ViewSwotComponent implements OnInit {
     modalRef.componentInstance.type = this.type;
   }
 
+  /**
+   * This method diplays the modal to add a SWOT analysis item in the Weakness category by default
+   */
   addItemWeak() {
     const options: NgbModalOptions = {
       beforeDismiss: () => {
@@ -125,6 +138,9 @@ export class ViewSwotComponent implements OnInit {
     modalRef.componentInstance.type = this.type;
   }
 
+  /**
+   * This method diplays the modal to add a SWOT analysis item in the Opportunity category by default
+   */
   addItemOpp() {
     const options: NgbModalOptions = {
       beforeDismiss: () => {
@@ -146,6 +162,9 @@ export class ViewSwotComponent implements OnInit {
     modalRef.componentInstance.type = this.type;
   }
 
+  /**
+   * This method diplays the modal to add a SWOT analysis item in the Threat category by default
+   */
   addItemThreat() {
     const options: NgbModalOptions = {
       beforeDismiss: () => {
@@ -168,15 +187,15 @@ export class ViewSwotComponent implements OnInit {
   }
 
 /**
- * This displays the modal to update the description of a swot
+ * This method displays the modal to update the description of a swot
  */
   changeDescription(){
     const modalRef = this.modalService.open(UpdateSwotComponent);
     modalRef.componentInstance.parentSwot = this.currentSwotAnalysis;
   }
 
-    /**
-   * This shows or hides a Confirm and Cancel button for Delete SWOT.
+  /**
+   * This method shows or hides a Confirm and Cancel button for Delete SWOT.
    */
   confirmDeleteVisibility:string = 'hidden';
   toggleConfirmDelete(){
@@ -184,11 +203,10 @@ export class ViewSwotComponent implements OnInit {
     else this.confirmDeleteVisibility = 'hidden';
   }
   /**
-   * This sends a request to the backend to delete a swot with id=id.
+   * This method sends a request to the backend to delete a swot with id=id.
    */
   deleteSwot(){
     this.swotService.deleteSwot(this.currentSwotAnalysis.id).subscribe();
-
     this.router.navigate(['/home']);
   }
 

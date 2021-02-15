@@ -27,19 +27,18 @@ export class UpdateItemComponent implements OnInit {
               private toastService: ToastRelayService) { }
 
   ngOnInit(): void {
-    console.log(this.passedSwotItem, 'update item component');
     this.swotItem = this.passedSwotItem;
   }
 
 
+  /**
+   * This is called whenever the form is submitted. If the form data is valid it PUTs the information to the server to update the item in the database.
+   * 
+   * @param itemForm 
+   */
   onSubmit(itemForm: NgForm) {
-    console.log(itemForm)
-    console.log(itemForm.value)
-    console.log(this.swotItem)
     this.swotService.updateItem(this.swotItem)
       .subscribe(data => {
-        // console.log(data);
-        // alert("Success! SWOT item has been updated.")
         this.toastService.addToast({
           header:'SWOT item updated',
           body:`Current name: ${this.swotItem.name}`
@@ -48,15 +47,20 @@ export class UpdateItemComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+
   confirmDeleteVisibility:string = 'hidden';
+  /**
+   * This toggles the visibility of the span containing the deleteItem() button.
+   */
   toggleConfirmDelete(){
     if(this.confirmDeleteVisibility == 'hidden') this.confirmDeleteVisibility = 'visible';
     else this.confirmDeleteVisibility = 'hidden';
   }
 
+  /**
+   * This emits an event which will trigger a DELETE call to the server and remove the item from the database.
+   */
   deleteItem() {
-    console.log("Emitting delete from update-comp, swotItemID: " + this.swotItem.id);
-    
     this.deleteEmitter.emit(this.swotItem.id);
     this.modalService.dismissAll();
   }

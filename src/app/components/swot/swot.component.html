@@ -2,7 +2,7 @@
         <div class="row no-gutters">
             <div class="col-lg-12 px-5 pt-5">
                 <h1 class="font-weight-bold py-3">Create SWOT</h1>
-                <p style="color: red;" *ngIf = "this.isSwotEmpty">No SWOTs exist, please create SWOT first</p>
+                <p style="color: red;" *ngIf = "isSwotEmpty">No SWOTs exist, please create SWOT first</p>
                 <form (ngSubmit)="onSubmit(signInForm)" #signInForm="ngForm">
                     <div class="form-row">
                         <div class="col-lg-12">

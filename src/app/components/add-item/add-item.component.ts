@@ -29,10 +29,12 @@ export class AddItemComponent implements OnInit{
     this.swotItem = new SwotItem(0, "", this.type, "", this.parentSwot.id);
   }
 
+  /**
+   * This checks that the form is not blank so that every item has a name
+   */
   modelChange(): void {
     if(!(this.swotItem.name.length === 0)){
       this.formIncomplete = false;
-
     }
     else{
       this.formIncomplete = true;
@@ -44,8 +46,11 @@ export class AddItemComponent implements OnInit{
  
   }
 
-
-
+  /**
+   * This is called whenever the form is submitted. If the form data is valid it POSTs the information to the server to add the item to the database.
+   * 
+   * @param itemForm 
+   */
   onSubmit(itemForm: NgForm) {
     if(this.formIncomplete == true){
       this.finalCheck = true;

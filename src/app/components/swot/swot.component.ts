@@ -28,7 +28,9 @@ export class SwotComponent implements OnInit {
   i : number = 0;
   hasData : boolean = false;
   existedDescription : string[] = [];
+  isSwotEmpty: boolean;
   @Input() passedId: number;
+  @Input() passedIsEmpty: boolean;
   //analysisItems: Array<SwotItems>;
   message: string = "";
   descBorder: string = "1px solid";
@@ -47,6 +49,9 @@ export class SwotComponent implements OnInit {
   {}
   ngOnInit(): void {
     this.associateId = this.passedId;
+    this.isSwotEmpty = this.passedIsEmpty;
+    console.log(this.passedIsEmpty);
+    
     this.getExistedDescription();
   }
 

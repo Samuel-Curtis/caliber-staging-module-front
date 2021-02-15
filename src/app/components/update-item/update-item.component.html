@@ -39,7 +39,15 @@
                         </div>
                     </div>
                 </form>
-                <button class="btn1 mt-3 mb-3" (click)="deleteItem()">Delete Swot Item</button>
+                <button class="btn1 mt-3 mb-3" (click)="toggleConfirmDelete()">Delete Swot Item</button>
+                <span>
+                  <button class="btn toggle-btn" (click)="deleteItem()"
+                  [ngStyle]="{'visibility':confirmDeleteVisibility}"
+                  >Confirm Delete</button>
+                  <button class="btn toggle-btn" (click)="toggleConfirmDelete()"
+                  [ngStyle]="{'visibility':confirmDeleteVisibility}"
+                  >Cancel</button>
+              </span>
             </div>
         </div>
     </div>

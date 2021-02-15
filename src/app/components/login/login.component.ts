@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         // Step 4: After successful login, store user info in sessionStorage
         sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
         console.log('Now going to homepage...');
-        this.loginService.storeManagerIdFromServer(currentUser.email)
+        this.loginService.storeManagerIdFromServer(currentUser.email);
         this.sleep(500);
         // Step 5: Redirect user to home page
         this.router.navigate(['home']);

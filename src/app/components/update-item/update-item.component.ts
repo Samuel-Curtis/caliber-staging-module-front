@@ -48,6 +48,12 @@ export class UpdateItemComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  confirmDeleteVisibility:string = 'hidden';
+  toggleConfirmDelete(){
+    if(this.confirmDeleteVisibility == 'hidden') this.confirmDeleteVisibility = 'visible';
+    else this.confirmDeleteVisibility = 'hidden';
+  }
+
   deleteItem() {
     console.log("Emitting delete from update-comp, swotItemID: " + this.swotItem.id);
     

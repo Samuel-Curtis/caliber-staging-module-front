@@ -42,6 +42,11 @@ export class SwotService {
     return this.http.delete<any>(`${environment.BASE_URL}swot/delete/${swotId}`);
   }
 
+  /**
+   * This method handles any errors that occur during the other methods in this class.
+   * @param operation 
+   * @param result 
+   */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error)
@@ -49,6 +54,10 @@ export class SwotService {
     }
   }
 
+/**
+ * This method performs a get request that returns an array of swot's based on an associate Id
+ * @param id 
+ */
   getSwotByAssociatedId(id: number): Observable<Swot[]> {
     return this.http.get<Swot[]>(`${environment.BASE_URL}swot/view/${id}`)
       .pipe(
@@ -56,6 +65,11 @@ export class SwotService {
       );
   }
 
+
+ /**
+  * This method performs a post request that returns a swot based on a specified Id
+  * @param id 
+  */
   getItem(id: number): Observable<SwotItem> {
     console.log(id);
     return this.http.post<SwotItem>(`${environment.BASE_URL}getSwotItem`, {id: id}, this.httpOptions)
@@ -64,6 +78,10 @@ export class SwotService {
       );
   }
 
+  /**
+   * This method makes a PUT request to update a swot item's information.
+   * @param swotItem 
+   */
   updateItem(swotItem: SwotItem): Observable<SwotItem> {
     let swotItemDTO = {
       id: swotItem.id,
@@ -80,6 +98,10 @@ export class SwotService {
       );
   }
 
+  /**
+   * This method makes a post request that passes along a new swot item to be added
+   * @param swotItem 
+   */
   addItem(swotItem: SwotItem): Observable<SwotItem> {
     let swotItemDTO = {
       id: swotItem.id,
@@ -97,6 +119,10 @@ export class SwotService {
     )
   }
 
+  /**
+   * This method make a delete request to delete a swot item based on Id
+   * @param swotItemId 
+   */
   deleteItem(swotItemId : number) : Observable<any> {
     return this.http.delete<any>(`${environment.BASE_URL}swot/item/delete/${swotItemId}`)
       .pipe(

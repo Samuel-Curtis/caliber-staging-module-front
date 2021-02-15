@@ -34,6 +34,9 @@ export class ViewFeedbackComponent implements OnInit {
     this.pullFeedbackData();
   }
 
+  /**
+   * This method requests the data on feedbacks from the backend
+   */
   pullFeedbackData() {
     this.associateId = +this.route.snapshot.paramMap.get('associateId')!.valueOf();
     this.feedbackService.getFeedbackByAssociateId(this.associateId)
@@ -42,8 +45,11 @@ export class ViewFeedbackComponent implements OnInit {
       })
   }
 
-  //This method requires implementation of deleteFeedback method in the 
-  //feedback Service
+  /**
+   * This method requires implementation of deleteFeedback method in the 
+   * feedback Service.
+   * It deletes a feedback comment by its id.
+   */
 
   delete(feedbackId: number) {
     this.feedbackService.deleteFeedback(feedbackId)
@@ -57,6 +63,9 @@ export class ViewFeedbackComponent implements OnInit {
 
   }
 
+  /**
+   * This opens a modal page to add a feedback.
+   */
   open() {
     const modalRef = this.modalService.open(AddFeedbackComponent);
     modalRef.componentInstance.passedId = this.associateId;

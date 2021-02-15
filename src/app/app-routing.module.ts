@@ -18,7 +18,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'view', 
+    path: 'view',
     component: ViewSwotComponent,
     canActivate: [AngularFireAuthGuard],
     data: {

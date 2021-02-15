@@ -62,11 +62,6 @@ import { UpdateFeedbackComponent } from './components/update-feedback/update-fee
       useClass: JwtInterceptor,
       multi: true,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: CorsInterceptor,
-      multi: true,
-    },
   ],
   bootstrap: [AppComponent],
 })

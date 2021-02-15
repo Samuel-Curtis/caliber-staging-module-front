@@ -16,10 +16,7 @@ ul {
     background: white;
     border-radius: 30px;
 }
-/* img{
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-} */
+
 .btn1{
     border: none;
     padding: 5px 10px;
@@ -30,7 +27,7 @@ ul {
 }
 .btn1:hover{
     background-color: #b6b1a8;
-    /* commented out because this line was affected the margins of other elements near this button -AK */
+    /* commented out because this line was affecting the margins of other elements near this button -AK */
     /* border: 1px solid black; */
     text-decoration: underline;
 }
@@ -114,7 +111,7 @@ ul {
 
 select {
     
-    /* margin: 50px 0px 5px 40px; */
+    
     margin: 20px auto;
 }
 
@@ -169,7 +166,6 @@ section {
 .card{
     height: 250px;
     text-align: center;
-    /* overflow-y: auto; */
     position: relative;
     margin: 10px;
 }
@@ -192,7 +188,6 @@ section {
 
 .card::-webkit-scrollbar-thumb {
     background-color: #b8b3aa;
-    /* outline: 1px solid slategrey; */
     border-radius: 10px;
 }
 
@@ -215,4 +210,4 @@ section {
     /*input has OS specific font-family*/
     color: #069;
     cursor: pointer;
-}
+} 

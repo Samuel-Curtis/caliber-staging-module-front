@@ -36,7 +36,7 @@ export class FeedbackService {
     }
     let associateId = feedback.associateId;
     
-    return this.http.post<string>(`${environment.BASE_URL}feedback/${associateId}`, feedbackDTO, this.httpOptions)
+    return this.http.post<string>(`${environment.BASE_URL}feedback`, feedbackDTO, this.httpOptions)
     .pipe(
       catchError(this.handleError<string>('addFeedback'))
     );

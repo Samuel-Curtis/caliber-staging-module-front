@@ -10,7 +10,12 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class CorsInterceptor implements HttpInterceptor {
   constructor() {}
-
+/**
+ * Defines the method for HTTP requests sent to the backend
+ * and setting the content type, access control, access methods, 
+ * and access control headers. 
+ * Also handles the request's return
+ */
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler

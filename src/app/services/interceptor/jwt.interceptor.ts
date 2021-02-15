@@ -16,6 +16,9 @@ export class JwtInterceptor implements HttpInterceptor {
   jwtSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   constructor(private fireAuth: AngularFireAuth) {}
 
+  /**
+   * Takes HTTP requests and handles using Fire Base authentication
+   */
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -28,6 +31,9 @@ export class JwtInterceptor implements HttpInterceptor {
     );
   }
 
+  /**
+   * Estabilishes an authorization token for HTTP request(s)
+   */
   addAuthorizationToken(req: HttpRequest<any>, jwt: string): HttpRequest<any> {
     return req.clone({
       setHeaders: { Authorization: 'Bearer ' + jwt },

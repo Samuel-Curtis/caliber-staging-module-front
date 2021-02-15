@@ -20,6 +20,11 @@ export class AssociateService {
         'X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding, X-Auth-Token, content-type',
     }),
   };
+  /**
+   * This returns all associates from the database to be displayed on the staging managers
+   * 'View All Associates' page view
+   * @param id Is an integer that represents the Associate's reference ID
+   */
   getAllAssociates(id: number): Observable<Associate[]> {
     return this.http.get<Associate[]>(
       `${environment.BASE_URL}associates?manager=${id}`,
@@ -27,6 +32,11 @@ export class AssociateService {
     );
   }
 
+/**
+ * This returns new associates from the database to be displayed on the staging managers
+ * 'View New Associates' page  view
+ * @param id Is an integer that represents the Associate's reference ID
+ */
   getAllNewAssociates(id: number): Observable<Associate[]> {
     return this.http.get<Associate[]>(
       `${environment.BASE_URL}associates/new?manager=${id}`,
@@ -34,6 +44,10 @@ export class AssociateService {
     );
   }
 
+  /**
+   * Sends an updated version of the batch to the back end
+   * 
+   */
   updateBatch(updatePayload: UpdateBatchPayload): any {
     return this.http.put(`${environment.BASE_URL}associates`, updatePayload, {
       observe: 'body',

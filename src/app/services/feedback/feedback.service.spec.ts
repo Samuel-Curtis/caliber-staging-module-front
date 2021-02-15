@@ -15,6 +15,15 @@ const dummydata = {
   associateId: 2,
   manager: null
 }
+
+const dummydataForAdding = {
+  id: 5,
+  managerId: 2,
+  date : new Date,
+  content: "content",
+  associateId: 2,
+  manager : new Manager (2)
+}
 describe('FeedbackService', () => {
   let service: FeedbackService;
   let httpMock: HttpTestingController;
@@ -47,5 +56,23 @@ describe('FeedbackService', () => {
     });
     const req = httpMock.expectOne("http://localhost:8081/feedback/1");
     expect(req.request.method).toBe('DELETE');
+  });
+
+  it('adds feedback and returns the posted feedback as a response', () => {
+    service.addFeedback(dummydataForAdding).subscribe((res) => {
+      expect(res.valueOf()).toEqual(dummydataForAdding.toString());
+    });
+    let associateId = dummydataForAdding.associateId;
+    const req = httpMock.expectOne((`${environment.BASE_URL}feedback/${associateId}`));
+    expect(req.request.method).toBe('POST');
+  });
+
+  it('updates feedback and returns the posted feedback as a response', () => {
+    service.updateFeedback(dummydataForAdding).subscribe((res) => {
+      expect(res.toString()).toEqual(dummydataForAdding.toString());
+    });
+    let feedbackId = dummydataForAdding.id;
+    const req = httpMock.expectOne((`${environment.BASE_URL}feedback/${feedbackId}`));
+    expect(req.request.method).toBe('PUT');
   });
 });

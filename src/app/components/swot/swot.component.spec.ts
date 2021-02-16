@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 describe('SwotComponent', () => {
   class MockService {
     addSwot() {return mockClient.get()}
+    getSwotByAssociatedId() {return new Observable}
   }
   
   let component: SwotComponent;

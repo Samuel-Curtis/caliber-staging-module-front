@@ -15,11 +15,10 @@ import { Swot } from 'src/app/models/swot-model/swot';
 @Component({
   selector: 'app-view-associate',
   templateUrl: './view-associate.component.html',
-  styleUrls: ['./view-associate.component.css']
+  styleUrls: ['./view-associate.component.css'],
 })
 export class ViewAssociateComponent implements OnInit {
-
-  associates: Associate[]; 
+  associates: Associate[];
   newAssociates: Associate[];
   swotIsEmpty: boolean;
   //filteredAssociates: Associate[];
@@ -30,23 +29,26 @@ export class ViewAssociateComponent implements OnInit {
   public counter1: number = 0;
 
   activeId: number;
-  //managerId: BehaviorSubject<number> = new BehaviorSubject(0);
   managerId: number;
   @Input() batchId: number;
   @Input() statusId: number;
 
-  associateFilter = "";
+  associateFilter = '';
   swotAnalyses: Swot[];
 
   private toggle = true;
 
-  constructor(private service: AssociateService, 
-              private modalService: NgbModal, 
-              private changeDetect: ChangeDetectorRef,
-              private swotService: SwotService,
-              private router: Router,
-              private toastService: ToastRelayService) {
-    this.associateSubject = new BehaviorSubject<Associate>(JSON.parse(sessionStorage.getItem('currentUser')));
+  constructor(
+    private service: AssociateService,
+    private modalService: NgbModal,
+    private changeDetect: ChangeDetectorRef,
+    private swotService: SwotService,
+    private router: Router,
+    private toastService: ToastRelayService
+  ) {
+    this.associateSubject = new BehaviorSubject<Associate>(
+      JSON.parse(sessionStorage.getItem('currentUser'))
+    );
     this.associate = this.associateSubject.asObservable();
   }
   
@@ -63,16 +65,10 @@ export class ViewAssociateComponent implements OnInit {
    */
   ngOnInit(): void {
     this.managerId = parseInt(sessionStorage.getItem('managerId'));
-    if(isNaN(this.managerId))
-    {
-      this.router.navigate(['/login']);
-    }
-    
     this.getAllAssociates(this.managerId);
     this.counter = 0;
     this.swotIsEmpty = false;
   }
-
 
   /**
    * This method returns the list of associates filtered by the user input
@@ -90,16 +86,17 @@ export class ViewAssociateComponent implements OnInit {
    * This methods filters the associates by the input the user enters
    * @param filterBy is the input entered by the user
    */
-  performFilter(filterBy:string): Associate[]{
+  performFilter(filterBy:string): Associate[] {
     filterBy = filterBy.toLowerCase();
-    return this.associates.filter((assoc:Associate) => 
-      (assoc.firstName.toLowerCase().indexOf(filterBy) != -1) ||
-      (assoc.firstName.toLowerCase().indexOf(filterBy) != -1) ||
-      (assoc.email.toLowerCase().indexOf(filterBy) != -1) ||
-      (assoc.status.toLowerCase().indexOf(filterBy) != -1) ||
-      (assoc.batch.toString().indexOf(filterBy) != -1) || 
-      (assoc.id.toString().indexOf(filterBy) != -1) ||
-      (assoc.salesforceId.toString().toLowerCase().indexOf(filterBy) != -1)
+    return this.associates.filter(
+      (assoc: Associate) =>
+        assoc.firstName.toLowerCase().indexOf(filterBy) != -1 ||
+        assoc.firstName.toLowerCase().indexOf(filterBy) != -1 ||
+        assoc.email.toLowerCase().indexOf(filterBy) != -1 ||
+        assoc.status.toLowerCase().indexOf(filterBy) != -1 ||
+        assoc.batch.toString().indexOf(filterBy) != -1 ||
+        assoc.id.toString().indexOf(filterBy) != -1 ||
+        assoc.salesforceId.toString().toLowerCase().indexOf(filterBy) != -1
     );
   }
 
@@ -108,7 +105,6 @@ export class ViewAssociateComponent implements OnInit {
    * in regards to associates
    */
   public toggleAssociateView() {
-    
     const button = document.getElementById('associate-btn');
     button.innerHTML = '';
 
@@ -123,7 +119,7 @@ export class ViewAssociateComponent implements OnInit {
     }
   }
 
-  public trackItem(index: number, item: Associate ) {
+  public trackItem(index: number, item: Associate) {
     return `${item.id}-${index}`;
   }
 
@@ -138,7 +134,7 @@ export class ViewAssociateComponent implements OnInit {
     const modalRef = this.modalService.open(SwotComponent);
     
     modalRef.componentInstance.passedId = this.activeId;
-    //modalRef.componentInstance.passedIsEmpty = this.swotIsEmpty;
+    modalRef.componentInstance.passedIsEmpty = this.swotIsEmpty;
   }
 
   /**
@@ -146,6 +142,7 @@ export class ViewAssociateComponent implements OnInit {
    * @param id is the id of the manager
    */
   public getAllAssociates(id: number): void {
+
     this.service.getAllAssociates(id)
     .subscribe(
       data => {
@@ -156,25 +153,22 @@ export class ViewAssociateComponent implements OnInit {
       }
       );
     this.associates = this.newAssociates;
-      // change to appropriate title
+    // change to appropriate title
     const title = document.getElementById('users-list');
     title.innerHTML = '';
     title.innerHTML = 'View All Associates';
-    }
+  }
 
     /**
      * This method gets all the new associates relative to a manager
      * @param id is the id of the manager 
      */
   public getAllNewAssociates(id: number): void {
-    this.service.getAllNewAssociates(id)
-    .subscribe(
-      data => {
-        this.associates = data;
-        this.changeDetect.detectChanges();
-      }
-    );
-     // change to appropriate title
+    this.service.getAllNewAssociates(id).subscribe((data) => {
+      this.associates = data;
+      this.changeDetect.detectChanges();
+    });
+    // change to appropriate title
     const title = document.getElementById('users-list');
     title.innerHTML = '';
     title.innerHTML = 'View New Associates';
@@ -197,14 +191,14 @@ export class ViewAssociateComponent implements OnInit {
   checkSwotsValid(): void {
    
 
-    this.swotService.getSwotByAssociatedId(this.activeId)
-      .subscribe((data: any[]) => {
-        
-        
+    this.swotService
+      .getSwotByAssociatedId(this.activeId)
+      .subscribe((data: any[]) => {        
         if(data.length === 0) {
+
           this.toastService.addToast({
-            header:'No SWOTs exist yet',
-            body: 'Please create a SWOT first'
+            header: 'No SWOTs exist yet',
+            body: 'Please create a SWOT first',
           });
           this.swotIsEmpty = true;
           this.open();
@@ -212,7 +206,7 @@ export class ViewAssociateComponent implements OnInit {
         } else {
           this.router.navigate([`/view/${this.activeId}`]);
         }
-      })
+      });
   }
 
     getSwotsByAssociate(associateId: string) {
@@ -220,7 +214,6 @@ export class ViewAssociateComponent implements OnInit {
       .subscribe((data: any) => {
        
         this.swotAnalyses = data;
-    })
+    });
   }
-
 }

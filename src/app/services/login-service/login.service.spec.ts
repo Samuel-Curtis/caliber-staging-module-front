@@ -15,11 +15,11 @@ describe('LoginService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-         
+
         HttpClientTestingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AppRoutingModule
-        
+
        ],
         providers: [LoginService, AngularFireModule, AppRoutingModule],
     });
@@ -32,7 +32,7 @@ describe('LoginService', () => {
   });
 
   it('should have postManager(email) return data', ()=>{
-    service.postManager('testEmail').subscribe(
+    service.getManagerId('testEmail').subscribe(
       response =>{
         expect(response.toString()).toEqual(dummyClientMessage.toString());
       }

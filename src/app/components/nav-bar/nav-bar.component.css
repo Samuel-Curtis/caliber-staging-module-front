@@ -6,6 +6,10 @@
 
 }
 
+.nav > * {
+  margin-bottom: 10px;
+}
+
 .nav-link{
     color: var(--white);
 }

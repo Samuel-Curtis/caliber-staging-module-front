@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,9 +15,6 @@ export class HomeComponent implements OnInit {
     } 
    }
 
-  /**
-   * This function logs out user when the logout button is clicked.
-   */
   logOut() {
     window.sessionStorage.clear();
     this.router.navigate(['']);

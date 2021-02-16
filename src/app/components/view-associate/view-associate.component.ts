@@ -65,7 +65,6 @@ export class ViewAssociateComponent implements OnInit {
     this.managerId = parseInt(sessionStorage.getItem('managerId'));
     if(isNaN(this.managerId))
     {
-      console.log(this.managerId);
       this.router.navigate(['/login']);
     }
     
@@ -137,7 +136,7 @@ export class ViewAssociateComponent implements OnInit {
    */
   open() {
     const modalRef = this.modalService.open(SwotComponent);
-    console.log(this.activeId);
+    
     modalRef.componentInstance.passedId = this.activeId;
     //modalRef.componentInstance.passedIsEmpty = this.swotIsEmpty;
   }
@@ -150,10 +149,10 @@ export class ViewAssociateComponent implements OnInit {
     this.service.getAllAssociates(id)
     .subscribe(
       data => {
-        console.log(data);
+        
         this.associates = data;
         this.changeDetect.detectChanges();
-        console.log(this.associates);
+        
       }
       );
     this.associates = this.newAssociates;
@@ -196,11 +195,11 @@ export class ViewAssociateComponent implements OnInit {
    * otherwise prompts the user to create a SWOT for said associate
    */
   checkSwotsValid(): void {
-    console.log(`Checking swots for user: ${this.activeId}`);
+   
 
     this.swotService.getSwotByAssociatedId(this.activeId)
       .subscribe((data: any[]) => {
-        console.log(`data length: ${data.length}`);
+        
         
         if(data.length === 0) {
           this.toastService.addToast({
@@ -219,7 +218,7 @@ export class ViewAssociateComponent implements OnInit {
     getSwotsByAssociate(associateId: string) {
       this.swotService.getSwotByAssociatedId(Number.parseInt(associateId))
       .subscribe((data: any) => {
-        console.log(data);
+       
         this.swotAnalyses = data;
     })
   }

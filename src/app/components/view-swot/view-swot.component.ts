@@ -34,7 +34,6 @@ export class ViewSwotComponent implements OnInit {
    * This requests all the data on a SWOT analysis from the backend on initialization
    */
   ngOnInit(): void {
-    console.log("in ngoninit");
     this.activeSwotIndex = 0;
 
     this.pullSwotData(); 
@@ -55,7 +54,7 @@ export class ViewSwotComponent implements OnInit {
    * @param swotAnalysisId is the id of the swot analysis
    */
   openUpdatePage(swotItem: SwotItem, swotAnalysisId: number) {
-    console.log(SwotItem);
+   
     swotItem.swotAnalysisId = swotAnalysisId;
     const modalRef = this.modalService.open(UpdateItemComponent);
     modalRef.componentInstance.name = 'UpdateSwot';
@@ -67,12 +66,11 @@ export class ViewSwotComponent implements OnInit {
    * This method deletes a swot item from a category
    */
   delete(swotItemId: number) {
-    console.log("Deleting from view-Swot, ID: " + swotItemId);
+   
 
     this.swotService.deleteItem(swotItemId)
       .subscribe((data: any) => {
 
-        console.log(data);
         // alert(`${data.message}`);
         this.toastService.addToast({
           header:"SWOT item deleted!",
@@ -89,10 +87,10 @@ export class ViewSwotComponent implements OnInit {
    */
   pullSwotData() {
     const associateId = +this.route.snapshot.paramMap.get('associateId')!.valueOf();
-    console.log(associateId)
+   
     this.swotService.getSwotByAssociatedId(associateId)
       .subscribe((data: any) => {
-        console.log(data);
+       
         this.swotAnalyses = data;
         this.currentSwotAnalysis = this.swotAnalyses[this.activeSwotIndex]
       })
@@ -214,7 +212,6 @@ export class ViewSwotComponent implements OnInit {
    * This method sends a request to the backend to delete a swot with id=id.
    */
   deleteSwot(){
-    console.log(this.currentSwotAnalysis);
     this.swotService.deleteSwot(this.currentSwotAnalysis.id).subscribe();
     this.router.navigate(['/home']);
   }
